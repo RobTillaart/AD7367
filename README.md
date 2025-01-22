@@ -18,7 +18,8 @@ Arduino library for the AD7367, 2 channel simultaneous sampling 14 bit ADC.
 
 **Experimental**  WORK IN PROGRESS
 
-The AD7367 is an ADC which can sample 2 channels simultaneously at 14 bits.
+The AD7367 is an ADC which can sample 2 channels simultaneously at 14 bits
+with a theoretical speed of up to 1 MSPS.
 
 The library implements the basic functionality to trigger a measurement and
 read the bits of the two ADC's.
@@ -31,9 +32,9 @@ Feedback, issues, improvements are welcome.
 Please file an issue on GitHub.
 
 
-
 ### Related
 
+- https://github.com/RobTillaart/ADS1x15  (12 & 16 bit ADC, I2C, slow)
 
 
 ## Interface  (Prelim)
@@ -46,19 +47,20 @@ Please file an issue on GitHub.
 
 - **AD7367(uint8_t select, uint8_t clock, uint8_t convert, uint8_t busy, uint8_t data0, uint8_t data1)**
 - **AD7366(uint8_t select, uint8_t clock, uint8_t convert, uint8_t busy, uint8_t data0, uint8_t data1)**
-- **void begin()** initializes internal state.
-- **uint8_t getType()** returns 67 or 66, depends on type.
-- **int getBits()** returns resolution 12 or 14 bits, depends on type.
 
-
-|   pin     |   IO     |  meaning  |
-|:---------:|:--------:|:---------:|
+|   pin     |   IO     |  description  |
+|:----------|:---------|:--------------|
 |  select   |  OUTPUT  |  Chip select 
 |  clock    |  OUTPUT  |  Serial clock
 |  convert  |  OUTPUT  |  start conversion
 |  busy     |   INPUT  |  conversion busy
 |  data0    |   INPUT  |  Serial data ADC A
 |  data1    |   INPUT  |  Serial data ADC B
+
+
+- **void begin()** initializes internal state.
+- **uint8_t getType()** returns 67 or 66, depends on type.
+- **int getBits()** returns resolution 12 or 14 bits, depends on type.
 
 
 ### Read
