@@ -29,6 +29,7 @@ public:
   //  READ ASYNC
   void     triggerConversion();
   bool     conversionBusy();
+  bool     conversionReady();
   int      readAsync();
   //  GET VALUE
   int      getValue(uint8_t channel);  //  channel = 0 or 1

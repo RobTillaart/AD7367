@@ -81,6 +81,7 @@ Forum link where it all started
 Actually it is a wrapper around the next three calls.
 - **void triggerConversion()** asynchronous call to start conversion.
 - **bool conversionBusy()** returns true if a conversion is ongoing.
+- **bool conversionReady()** returns true if a conversion is ready.
 - **int readAsync()** clock in the data from the device.
 Should be called only if the conversion is ready.
 - **int getValue(uint8_t channel)** get the last measurement of channel 0 or 1.
@@ -111,6 +112,7 @@ however this is not supported.
   - digitalPulse(pin) LOW_HIGH 
 - getMaxValue() 12 bit == 4096, 14 bit = 16383.
 - flag in read() to read via data pin 1, 2 or both(3)?
+  - or another constructor?
 - optimize AVR with registers a la SW SPI.
 - error handling?
 - interrupt example?
