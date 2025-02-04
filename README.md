@@ -91,6 +91,30 @@ is read, sync or async.
 The device has an option to read both measurements using only one data pin
 however this is not supported.
 
+
+### FastRead
+
+- **int fastRead(int &d0, int &d1)** read and return 2 measurements by reference.
+This function is more ideal e.g. to fill an array. See example.
+
+
+### ADDR 
+
+Datasheet page 17
+
+- **void ADDRpin(uint8_t pin)** define the ADDR pin, default LOW = (Va1, Vb1).
+- **void ADDRwrite(uint8_t mode)** LOW = (Va1, Vb1) or HIGH = (Va2, Vb2)
+input pins in the **read()** or **fastRead()** function.
+
+
+### REFSEL 
+
+Datasheet page 19
+
+- **void REFSELpin(uint8_t pin)** define the REFSEL pin, default HIGH = internal.
+- **void REFSELwrite(uint8_t mode)** LOW = external voltage or LOW = internal 2.5 Volt. 
+
+
 ## Future
 
 #### Must
@@ -102,20 +126,17 @@ however this is not supported.
 #### Should
 
 - add examples
-- support REFSEL reference select.
-- support ADDR
 - support RANGE1 RANGE0
 
 #### Could
 
+- int getMaxValue() 12 bit == 4095, 14 bit = 16383.
 - optimize code.
   - digitalPulse(pin) LOW_HIGH 
-- getMaxValue() 12 bit == 4096, 14 bit = 16383.
-- flag in read() to read via data pin 1, 2 or both(3)?
-  - or another constructor?
 - optimize AVR with registers a la SW SPI.
 - error handling?
 - interrupt example?
+
 
 #### Wont
 
