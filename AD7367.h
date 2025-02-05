@@ -26,19 +26,22 @@ public:
   int      getBits();  //  returns 12 or 14
 
   //  READ
-  int      read();
+  //  note the ADDR line below determines which pair is read (a1, b1) or (a2, b2)
+  int      read();  //  reads ADC-A and ADC-B into an internal buffer.
 
-  //  READ ASYNC
+  //  READ ASYNCHRONOUS
   void     triggerConversion();
   bool     conversionBusy();
   bool     conversionReady();
   int      readAsync();
-  //  GET VALUE
-  int      getValue(uint8_t channel);  //  channel = 0 or 1
+  //  GET VALUES FROM ADC's
+  int      getLastADCA();  //  returns last read value from ADC-A
+  int      getLastADCB();  //  returns last read value from ADC-B
 
   //  FASTREAD
   //  read and return 2 measurements by reference. (arrays)
-  int      fastRead(int &d0, int &d1);
+  //  a == ADC-A,  b == ADC-B
+  int      fastRead(int &a, int &a);
 
 
   //  ADDR
@@ -57,6 +60,9 @@ public:
   void     REFSELpin(uint8_t pin);
   //  LOW = external voltage or LOW = internal 2.5 Volt. 
   inline void REFSELwrite(uint8_t mode) { digitalWrite(_refsel, mode); };
+
+  //  OBSOLETE
+  int    getValue(channel); // 0 = ADC-A,  1 = ADC-B
 
 
 protected:

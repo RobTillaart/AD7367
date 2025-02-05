@@ -106,9 +106,14 @@ int AD7367::readAsync()
   return 0;
 }
 
-int AD7367::getValue(uint8_t channel)
+int AD7367::getLastADCA()
 {
-  return _value[channel];
+  return _value[0];
+}
+
+int AD7367::getLastADCB()
+{
+  return _value[1];
 }
 
 
@@ -160,6 +165,17 @@ void AD7367::REFSELpin(uint8_t pin)
   pinMode(_refsel, OUTPUT);
   digitalWrite(_refsel, HIGH);
 }
+
+
+//////////////////////////////////////////////////////////////////
+//
+//  OBSOLETE
+//
+int AD7367::getValue(uint8_t channel)
+{
+  return _value[channel];
+}
+
 
 
 //////////////////////////////////////////////////////////////////

@@ -33,16 +33,16 @@ void loop()
   //  select (Va1, Vb1)
   AD.ADDRwrite(LOW);
   AD.read();
-  Serial.print(AD.getValue(0));
+  Serial.print(AD.getLastADCA());
   Serial.print("\t");
-  Serial.println(AD.getValue(1));
+  Serial.println(AD.getLastADCB());
 
   //  select (Va2, Vb2)
   AD.ADDRwrite(HIGH);
   AD.read();
-  Serial.print(AD.getValue(0));
+  Serial.print(AD.getLastADCA());
   Serial.print("\t");
-  Serial.println(AD.getValue(1));
+  Serial.println(AD.getLastADCB());
 }
 
 

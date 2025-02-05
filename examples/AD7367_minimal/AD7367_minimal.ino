@@ -30,9 +30,9 @@ void setup()
 void loop()
 {
   AD.read();
-  Serial.print(AD.getValue(0));
+  Serial.print(AD.getLastADCA());
   Serial.print("\t");
-  Serial.println(AD.getValue(1));
+  Serial.println(AD.getLastADCB());
 }
 
 

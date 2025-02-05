@@ -25,13 +25,34 @@ The two samples can be clocked out (SPI alike) simultaneous over two data pins.
 
 This library implements the **basic** functionality to trigger a measurement and
 read the bits of the two ADC's over two data pins.
-
-
-
+It is a software (bit bang) solution which might be called a **Dual-SPI** or **DSPI**,
+to read the two "MISO" lines in parallel.
 
 Feedback, issues, improvements are welcome. 
 Please file an issue on GitHub.
 
+
+#### QSPI - 4 lines
+
+There exists a QSPI (quad-SPI) protocol to sample up to 4 "MISO" lines in parallel.
+This is mostly used to clock out a byte (8 bits) as two nibbles (4 bits).
+In theory this QSPI could be used to sample the two data channels of the AD7367.
+It would have to ignore 2 of the 4 "MISO" channels.
+In practice this is inefficient and thus far never seen QSPI-Arduino working. 
+
+
+#### SPI - single line
+
+According to the datasheet it is possible to read both ADC's over one "MISO" 
+line thus with standard SPI. 
+After clocking out the ADC-a1, if one continues clocking the data from the 
+other ADC-b1 comes over the same line. 
+Drawback is that the clocking takes about twice as long and one needs some 
+bit-manipulation to split the data. 
+Effectively one looses about 50% of the performance. 
+And that "parallel" performance is a core strength of this AD7367.
+
+Configuration wise it is easier to have two single ADC's side by side if performance is not a requirement. Note the library does not implement this single SPI feature. 
 
 
 ### Related
@@ -77,25 +98,32 @@ Forum link where it all started
 
 ### Read
 
-- **int read()** synchronous call to make a measurement from both channels.
+- **int read()** synchronous call to make a measurement from both ADC-A and ADC-B.
+These values are stored in an internal buffer to be fetched with **getLastADCA()**
+and **getLastADCB()**.
+Note the **ADDR** line below determines which lines are read (a1, b1) or (a2, b2).
 Actually it is a wrapper around the next three calls.
-- **void triggerConversion()** asynchronous call to start conversion.
-- **bool conversionBusy()** returns true if a conversion is ongoing.
-- **bool conversionReady()** returns true if a conversion is ready.
-- **int readAsync()** clock in the data from the device.
-Should be called only if the conversion is ready.
-- **int getValue(uint8_t channel)** get the last measurement of channel 0 or 1.
-Multiple calls to **getValue()** will result in the same value until new data 
-is read, sync or async.
+- **void triggerConversion()** asynchronous call to start ADC measurements.
+- **bool conversionBusy()** returns true when the measurement are ongoing.
+- **bool conversionReady()** returns true when the measurement are  ready.
+- **int readAsync()** clocks in the data from the two ADC's of the device.
+Should be called only when the measurements are ready.
+- **int getLastADCA()** returns the last measurement of ADC-A
+Multiple calls to **getLastADCA()** will result in the same value until new data 
+is read, either synchronous or asynchronous.
+- **int getLastADCB()** returns the last measurement of ADC-A
+Multiple calls to **getLastADCB()** will result in the same value until new data 
+is read, either synchronous or asynchronous.
 
 The device has an option to read both measurements using only one data pin
-however this is not supported.
+however this is not supported. See SPI - single line section at the top.
 
 
 ### FastRead
 
-- **int fastRead(int &d0, int &d1)** read and return 2 measurements by reference.
+- **int fastRead(int &a, int &b)** reads and returns two measurements by reference.
 This function is more ideal e.g. to fill an array. See example.
+Note the **ADDR** line below determines which lines are read (a1, b1) or (a2, b2).
 
 
 ### ADDR 
@@ -113,6 +141,11 @@ Datasheet page 19
 
 - **void REFSELpin(uint8_t pin)** define the REFSEL pin, default HIGH = internal.
 - **void REFSELwrite(uint8_t mode)** LOW = external voltage or LOW = internal 2.5 Volt. 
+
+
+### Obsolete
+
+- int getValue(channel) replaced by **int getLastADCA()** and **int getLastADCB()**.
 
 
 ## Future
