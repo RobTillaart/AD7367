@@ -62,7 +62,7 @@ public:
   inline void REFSELwrite(uint8_t mode) { digitalWrite(_refsel, mode); };
 
   //  OBSOLETE
-  int    getValue(channel); // 0 = ADC-A,  1 = ADC-B
+  int    getValue(uint8_t channel); // 0 = ADC-A,  1 = ADC-B
 
 
 protected:
