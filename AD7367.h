@@ -41,7 +41,7 @@ public:
   //  FASTREAD
   //  read and return 2 measurements by reference. (arrays)
   //  a == ADC-A,  b == ADC-B
-  int      fastRead(int &a, int &a);
+  int      fastRead(int &a, int &b);
 
 
   //  ADDR

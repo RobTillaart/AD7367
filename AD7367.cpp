@@ -121,7 +121,7 @@ int AD7367::getLastADCB()
 //
 //  FASTREAD
 //
-int AD7367::fastRead(int &d0, int &d1)
+int AD7367::fastRead(int &a, int &b)
 {
   //  Trigger conversion by 10 ns pulse. (see above)
   digitalWrite(_convert, LOW);
@@ -132,18 +132,18 @@ int AD7367::fastRead(int &d0, int &d1)
   //  fetch data
   digitalWrite(_select, LOW);
   //  reset data received.
-  d0 = 0;
-  d1 = 0;
+  a = 0;
+  b = 0;
   //  clock in the bits
   for (int i = 0; i < _bits; i++)
   {
     digitalWrite(_clock, LOW);
     digitalWrite(_clock, HIGH);
-    d0 = (d0 << 1) | digitalRead(_data0);
-    d1 = (d1 << 1) | digitalRead(_data1);
+    a = (a << 1) | digitalRead(_data0);
+    b = (b << 1) | digitalRead(_data1);
   }
-  _value[0] = d0;
-  _value[1] = d1;
+  _value[0] = a;
+  _value[1] = b;
   return 0;
 }
 
