@@ -48,7 +48,7 @@ public:
   //  one could hard connect the ADDR pin,
   //  so these functions are not needed
   //  pin is set default LOW
-  void     ADDRpin(uint8_t pin);
+  void     setADDRpin(uint8_t pin);
   //  LOW = (Va1, Vb1) or HIGH = (Va2, Vb2)
   inline void ADDRwrite(uint8_t mode) { digitalWrite(_addr, mode); };
 
@@ -57,12 +57,24 @@ public:
   //  one could hard connect the REFSEL pin,
   //  so these functions are not needed
   //  pin is set default HIGH = internal.
-  void     REFSELpin(uint8_t pin);
-  //  LOW = external voltage or LOW = internal 2.5 Volt. 
+  void     setREFSELpin(uint8_t pin);
+  //  LOW = external voltage or LOW = internal 2.5 Volt.
   inline void REFSELwrite(uint8_t mode) { digitalWrite(_refsel, mode); };
 
+
+  //  RANGE
+  void     setRangePin(uint8_t range0, uint8_t range1);
+  //  page 16/17, table 8
+  //  0 = ±10 V
+  //  1 = ±5 V
+  //  2 = 0 V to 10 V
+  //  other values = fail
+  //  returns 0 on success, -1 or -2 on failure.
+  int      setRange(uint8_t range);
+  uint8_t  getRange();  //  returns 0, 1, 2  (255 if pins are not set)
+
   //  OBSOLETE
-  int    getValue(uint8_t channel); // 0 = ADC-A,  1 = ADC-B
+  int      getValue(uint8_t channel); // 0 = ADC-A,  1 = ADC-B
 
 
 protected:
@@ -78,6 +90,8 @@ protected:
 
   uint8_t  _addr   = 255;
   uint8_t  _refsel = 255;
+  uint8_t  _range0 = 255;
+  uint8_t  _range1 = 255;
 };
 
 

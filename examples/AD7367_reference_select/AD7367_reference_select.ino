@@ -22,8 +22,8 @@ void setup()
   Serial.println();
 
   AD.begin();
-  AD.ADDRpin(11);       //  use pin 11 to control ADDR pin.
-  AD.REFSELpin(12);     //  use pin 12 to control REFSEL pin.
+  AD.setADDRpin(11);       //  use pin 11 to control ADDR pin.
+  AD.setREFSELpin(12);     //  use pin 12 to control REFSEL pin.
 
   AD.REFSELwrite(LOW);  //  use external reference selection.
 

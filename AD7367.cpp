@@ -152,19 +152,52 @@ int AD7367::fastRead(int &a, int &b)
 //
 //  ADDR + REFSEL
 //
-void AD7367::ADDRpin(uint8_t pin)
+void AD7367::setADDRpin(uint8_t pin)
 {
   _addr = pin;
   pinMode(_addr, OUTPUT);
   digitalWrite(_addr, LOW);
 }
 
-void AD7367::REFSELpin(uint8_t pin)
+void AD7367::setREFSELpin(uint8_t pin)
 {
   _refsel = pin;
   pinMode(_refsel, OUTPUT);
   digitalWrite(_refsel, HIGH);
 }
+
+
+//////////////////////////////////////////////////////////////////
+//
+//  RANGE
+//
+void AD7367::setRangePin(uint8_t range0, uint8_t range1)
+{
+  _range0 = range0;
+  _range1 = range1;
+  pinMode(_range0, OUTPUT);
+  pinMode(_range1, OUTPUT);
+  digitalWrite(_range0, LOW);
+  digitalWrite(_range1, LOW);
+}
+
+int AD7367::setRange(uint8_t range)
+{
+  if (range > 2) return -1;
+  if (conversionBusy()) return -2;
+  digitalWrite(_range0, range & 0x01);
+  digitalWrite(_range1, (range >> 1) & 0x01);
+  return 0;
+}
+
+uint8_t AD7367::getRange()
+{
+  if ((_range0 == 255) || (_range1 == 255)) return 255;
+  uint8_t range = digitalRead(_range0) == LOW ? 0 : 1;
+  range += digitalRead(_range1) == LOW ? 0 : 2;
+  return range;
+}
+
 
 
 //////////////////////////////////////////////////////////////////

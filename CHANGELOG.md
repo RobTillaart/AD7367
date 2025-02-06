@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - updated examples (with above change).
 - add support for **ADDR** pin
 - add support for **REFSEL** pin
+- add support for **RANGE** pins
 - add examples 
 - update readme.md
 
