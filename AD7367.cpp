@@ -101,6 +101,8 @@ int AD7367::readAsync()
     d0 = (d0 << 1) | digitalRead(_data0);
     d1 = (d1 << 1) | digitalRead(_data1);
   }
+  digitalWrite(_select, HIGH);
+
   _value[0] = d0;
   _value[1] = d1;
   return 0;
@@ -142,6 +144,8 @@ int AD7367::fastRead(int &a, int &b)
     a = (a << 1) | digitalRead(_data0);
     b = (b << 1) | digitalRead(_data1);
   }
+  digitalWrite(_select, HIGH);
+
   _value[0] = a;
   _value[1] = b;
   return 0;
