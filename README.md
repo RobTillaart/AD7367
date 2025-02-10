@@ -28,6 +28,8 @@ read the bits of the two ADC's over two data pins.
 It is a software (bit bang) solution which might be called a **Dual-SPI** or **DSPI**,
 to read the two "MISO" lines in parallel.
 
+**Warning** The library is not tested with hardware yet.
+
 Feedback, issues, improvements are welcome.
 Please file an issue on GitHub.
 
@@ -58,6 +60,7 @@ Configuration wise it is easier to have two single ADC's side by side if perform
 ### Related
 
 - https://github.com/RobTillaart/AD7367 simultaneous sampling 14 bit ADC.
+- https://github.com/RobTillaart/AD7367_SPI consecutive sampling 14 bit ADC.
 - https://github.com/RobTillaart/ADC081S 10-12 bit, single channel ADC
 - https://github.com/RobTillaart/ADC08XS 10-12 bit, 2 + 4 channel ADC
 - https://gammon.com.au/adc tutorial about ADC's (UNO specific)
