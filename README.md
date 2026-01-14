@@ -34,7 +34,7 @@ Feedback, issues, improvements are welcome.
 Please file an issue on GitHub.
 
 
-#### QSPI - 4 lines
+### QSPI - 4 lines
 
 There exists a QSPI (quad-SPI) protocol to sample up to 4 "MISO" lines in parallel.
 This is mostly used to clock out a byte (8 bits) as two nibbles (4 bits).
@@ -43,7 +43,7 @@ It would have to ignore 2 of the 4 "MISO" channels.
 In practice this is inefficient and thus far never seen QSPI-Arduino working.
 
 
-#### SPI - single line
+### SPI - single line
 
 According to the datasheet it is possible to read both ADC's over one "MISO"
 line thus with standard SPI.
@@ -97,6 +97,7 @@ Forum link where it all started
 - **void begin()** initializes internal state.
 - **uint8_t getType()** returns 67 or 66, depends on type (which constructor used)
 - **int getBits()** returns resolution 12 or 14 bits, depends on type.
+- **int getMaxValue()** returns 12 bit => 4095, 14 bit => 16383.
 
 
 ### Read
@@ -193,22 +194,23 @@ Instead of setting the REFSEL pin, one can hardwire this pin.
 
 #### Should
 
-- add examples
+- add voltage interface
+  - add **float getVoltageA()**
+  - add **float getVoltageB()**
+  - if external used => voltage factor needed.
 
 #### Could
 
-- add**int getMaxValue()** 12 bit == 4095, 14 bit = 16383.
-- add **float getVoltageA()**
-- add **float getVoltageB()**
-- optimize code.
-  - digitalPulse(pin) LOW_HIGH
-- optimize AVR with registers a la SW SPI.
-- error handling?
-- interrupt example?
+- add examples
+  - interrupt example
+- add error handling?
 - add enum for RANGE  AD7367_RANGE_PM10  PM5  0T10
 - add enum for REFSEL
 - add enum for ADDR ?
-
+- optimize code.
+  - digitalPulse(pin) LOW_HIGH
+- optimize AVR with registers a la SW SPI.
+- percentage interface? 0.100 scale?
 
 #### Wont
 
