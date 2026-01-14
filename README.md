@@ -21,7 +21,7 @@ Arduino library for the AD7367, 2 channel simultaneous sampling 14 bit ADC.
 The AD7367 is a device with two ADC's which can sample 2 channels simultaneously
 at 14 bits with a theoretical speed of up to 1 MSPS.
 The AD7366 is a similar 12 bits device.
-The two samples can be clocked out (SPI alike) simultaneous over two data pins.
+The two samples are clocked out (SPI alike) **simultaneous** over two data pins.
 
 This library implements the **basic** functionality to trigger a measurement and
 read the bits of the two ADC's over two data pins.
